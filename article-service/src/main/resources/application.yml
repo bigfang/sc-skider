@@ -5,8 +5,6 @@ server:
     context-path: /api
 
 spring:
-  application:
-    name: article-service
   output:
     ansi:
       enabled: ALWAYS
@@ -19,11 +17,6 @@ spring:
     #    generate-ddl: true
     hibernate:
       ddl-auto: update
-
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
 
 management:
   endpoints:
