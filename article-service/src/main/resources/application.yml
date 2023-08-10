@@ -18,6 +18,18 @@ spring:
     hibernate:
       ddl-auto: update
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 300 # 连接超时时间
+        readTimeout: 1000   # 读超时时间
+        loggerLevel: BASIC # 日志级别
+  httpclient:
+    enable: true
+    maxConnections: 200
+    maxConnectionsPerRoute: 100
+
 management:
   endpoints:
     web:

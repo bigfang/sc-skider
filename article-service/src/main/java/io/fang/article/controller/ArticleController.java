@@ -1,5 +1,7 @@
 package io.fang.article.controller;
 
+import io.fang.account.client.AccountClient;
+import io.fang.account.model.User;
 import io.fang.article.model.Article;
 import io.fang.article.service.ArticleService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,6 +22,9 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private AccountClient accountClient;
+
     @GetMapping("")
     public List<Article> findAll() {
         return articleService.findAll();
@@ -27,8 +32,11 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public Article findById(Long id) {
-        return articleService.findById(id).orElseThrow(
+        Article article =  articleService.findById(id).orElseThrow(
             () -> new NoSuchElementException("Article not found by id: `%s`".formatted(id))
         );
+        User user = accountClient.findById(article.getAuthorId());
+        article.setAuthor(user);
+        return article;
     }
 }
